@@ -9,6 +9,7 @@ interface EventModalProps {
   onSave: (event: Omit<CalendarEvent, "id"> | CalendarEvent) => void;
   onDelete?: (id: string) => void;
   initialDate?: string;
+  initialTime?: string;
   event?: CalendarEvent | null;
 }
 
@@ -18,6 +19,7 @@ export default function EventModal({
   onSave,
   onDelete,
   initialDate,
+  initialTime,
   event,
 }: EventModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -40,8 +42,11 @@ export default function EventModal({
       } else {
         setTitle("");
         setDate(initialDate || "");
-        setStartTime("09:00");
-        setEndTime("10:00");
+        const start = initialTime || "09:00";
+        const startHour = parseInt(start.split(":")[0]);
+        const end = `${String(startHour + 1).padStart(2, "0")}:00`;
+        setStartTime(start);
+        setEndTime(end);
         setDescription("");
       }
       dialogRef.current?.showModal();
@@ -49,7 +54,7 @@ export default function EventModal({
     } else {
       dialogRef.current?.close();
     }
-  }, [isOpen, event, initialDate]);
+  }, [isOpen, event, initialDate, initialTime]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
