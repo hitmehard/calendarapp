@@ -2,6 +2,7 @@
 
 import { CalendarEvent } from "@/types/calendar";
 import { formatTime, toDateString } from "@/lib/calendar-utils";
+import HistoricalFact from "./HistoricalFact";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
 
@@ -35,6 +36,7 @@ export default function DailyView({
   });
 
   return (
+    <>
     <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
       <div className="border-b border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-800">
         <h2 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
@@ -85,5 +87,7 @@ export default function DailyView({
         </div>
       </div>
     </div>
+    <HistoricalFact type="day" date={dateStr} />
+    </>
   );
 }

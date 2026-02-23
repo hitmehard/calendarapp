@@ -2,6 +2,7 @@
 
 import { getMonthGrid, toDateString } from "@/lib/calendar-utils";
 import { CalendarEvent } from "@/types/calendar";
+import HistoricalFact from "./HistoricalFact";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -24,7 +25,10 @@ export default function YearlyView({
 }: YearlyViewProps) {
   const today = toDateString(new Date());
 
+  const factDate = `${year}-01-01`;
+
   return (
+    <>
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {MONTH_NAMES.map((name, monthIndex) => {
         const cells = getMonthGrid(year, monthIndex);
@@ -77,5 +81,7 @@ export default function YearlyView({
         );
       })}
     </div>
+    <HistoricalFact type="year" date={factDate} />
+    </>
   );
 }

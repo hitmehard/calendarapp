@@ -3,6 +3,7 @@
 import { getMonthGrid, toDateString } from "@/lib/calendar-utils";
 import { CalendarEvent } from "@/types/calendar";
 import DayCell from "./DayCell";
+import HistoricalFact from "./HistoricalFact";
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -23,7 +24,10 @@ export default function CalendarGrid({
 }: CalendarGridProps) {
   const cells = getMonthGrid(year, month);
 
+  const factDate = `${year}-${String(month + 1).padStart(2, "0")}-01`;
+
   return (
+    <>
     <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
       <div className="grid grid-cols-7 bg-zinc-100 dark:bg-zinc-800">
         {WEEKDAYS.map((day) => (
@@ -51,5 +55,7 @@ export default function CalendarGrid({
         })}
       </div>
     </div>
+    <HistoricalFact type="month" date={factDate} />
+    </>
   );
 }
